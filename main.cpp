@@ -1,5 +1,6 @@
 #include "raylib.h"
-#include "Game.h"
+#include "HeaderFiles/Game.h"
+#include "HeaderFiles/Screen.h"
 
 enum class ApplicationStates
 {
@@ -11,9 +12,10 @@ enum class ApplicationStates
 ApplicationStates ApplicationState = ApplicationStates::Startup;
 
 int main()
-{   
+{
 
-    Game game(1280, 800);
+    Game game;//init instance
+    Screen screen(&game);
     InitWindow(1280, 800, "RoyalPool");
     SetTargetFPS(60);
     ApplicationState = ApplicationStates::Running;
@@ -37,7 +39,8 @@ int main()
         BeginDrawing();
         ClearBackground(WHITE);
 
-        game.Draw();
+        game.Draw(); //game draw
+        screen.Draw(); //draw hud sköter scores samt, animeringar!!
 
         EndDrawing();
     }

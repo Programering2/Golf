@@ -1,4 +1,4 @@
-#include "Ball.h"
+#include "HeaderFiles/Ball.h"
 
 Ball::Ball(float px, float py, float vx, float vy, float ax, float ay, float radius, int ID, bool debugMode, int mass) // on create
 {
@@ -19,7 +19,7 @@ Ball::Ball(float px, float py, float vx, float vy, float ax, float ay, float rad
 
 void Ball::Draw()
 {
-    DrawCircle(me.px, me.py, me.radius, color);
+    DrawCircle(me.px, me.py, me.radius, WHITE);
     if (debugMode)
     {
         DrawLine(me.px, me.py, endx, endy, RED);

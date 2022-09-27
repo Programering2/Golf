@@ -31,6 +31,7 @@ int main()
             break;
         case ApplicationStates::Running:
             game.Update();
+            screen.Update();
             break;
         case ApplicationStates::Quiting:
             // Quitting

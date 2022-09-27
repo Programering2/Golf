@@ -125,7 +125,15 @@ void Player::Update()
     else
     {
         setupDone = false;
-        SetupLevel(1);
+        if(level < maxLevel)
+        {
+            int newlevel = level + 1;
+            SetupLevel(newlevel);
+        }
+        else
+        {
+            //du är färdig
+        }
     }
 }
 

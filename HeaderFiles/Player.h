@@ -1,3 +1,5 @@
+#ifndef __PLAYER__
+#define __PLAYER__
 #include "Ball.h"
 #include "Levels.h"
 #include <vector>
@@ -17,6 +19,7 @@ private:
     int mass;
     int SwingsThisRound;
     int totalSwings;
+    int maxLevel = 8;
     bool canSwing = true; // bools
     bool debugmode;
     bool golfHoleSetToPntr = false;
@@ -55,3 +58,4 @@ public:
     void SetupLevel(int level);
     void DrawAim();
 };
+#endif

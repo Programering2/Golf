@@ -15,14 +15,20 @@
 class Game
 {
 private:
-    std::vector<Player> Spelare;
     bool PlayerOneTurn;
+    
+    std::vector<Player> Spelare;
 
 public:
-    Game();
     void Draw();
     void Update();
-    std::vector<Player> *getPlayers() { return &Spelare; }
+    Game();
     ~Game();
+
+    //getters
+    bool getPlayerOneTurn(){ return PlayerOneTurn;};
+    Player* getPlayerOne(){ return & Spelare[0];};
+    Player* getPlayerTwo(){ return & Spelare[1];};
+
 };
 #endif

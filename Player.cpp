@@ -52,7 +52,7 @@ void Player::Update()
             canSwing = true;
         }
 
-        if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) // if button released
+        if (IsKeyPressed(KEY_SPACE) && canSwing) // if button released
         {
             if (pselectedBall != nullptr) // vi lägger till velocity
             {
@@ -125,14 +125,14 @@ void Player::Update()
     else
     {
         setupDone = false;
-        if(level < maxLevel)
+        if (level < maxLevel)
         {
             int newlevel = level + 1;
             SetupLevel(newlevel);
         }
         else
         {
-            //du är färdig
+            // du är färdig
         }
     }
 }

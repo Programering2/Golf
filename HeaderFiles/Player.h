@@ -36,7 +36,7 @@ private:
         float holex, holey, holeRadius;
         GolfHole *holePointer;
     };
-    Level currentLevel; 
+    Level currentLevel;
 
 public:
     void Update();

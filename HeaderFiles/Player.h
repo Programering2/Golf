@@ -7,7 +7,6 @@
 class Player
 {
 private:
-    Levels levels;
     Ball *GolfBall; // pointers
     Ball *pselectedBall = nullptr;
     float CueMultiplier; // floats
@@ -25,14 +24,12 @@ private:
     bool golfHoleSetToPntr = false;
     bool playerOne;
     bool setupDone = false;
-    std::vector<Ball> GolfBalls; // vectors
+    std::vector<Levels> levels;
     std::vector<int> allSwings;
 
     struct Level // structs
     {
         float px, py;
-        float grassx, grassy;
-        float grassWidth, grassHeight;
         float holex, holey, holeRadius;
         GolfHole *holePointer;
     };

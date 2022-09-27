@@ -1,20 +1,21 @@
 #include "HeaderFiles/Player.h"
 
 Player::Player(bool playerOne)
-{
+{   
     debugmode = false; // draws debug lines etcetra
     setupDone = false;
     this->playerOne = playerOne;
     this->WindowWidth = 1280;
     this->WindowHeight = 800;
+    levels.push_back(Levels(WindowWidth, WindowHeight));
     defaultRadius = 11.43f;
     friction = 0.8f;
     CueMultiplier = 5.f;
     mass = 10 * defaultRadius;
-    levels.setupLevels();
+    levels[0].setupLevels();
     level = 0;
     SetupLevel(level);
-    GolfBall = &GolfBalls[level];
+    GolfBall = levels[0].GetLevel(level)->getBall();
 
     SwingsThisRound = 0;
     totalSwings = 0;
@@ -78,6 +79,7 @@ void Player::Update()
         GolfBall->setPx(GolfBall->getPos().x + (GolfBall->getVelocity().x * GetFrameTime()));
 
         // studs mot vägg
+        /*
         if (GolfBall->getPos().x < (currentLevel.grassx + defaultRadius))
         {
             GolfBall->setVx(-GolfBall->getvx()); //ändra riktning
@@ -102,6 +104,7 @@ void Player::Update()
             GolfBall->setay(-GolfBall->getay()); //'ndra accelrerande riktning
             GolfBall->setPy(currentLevel.grassy + currentLevel.grassHeight - defaultRadius);
         }
+        */
 
         if (fabs(GolfBall->getvx() * GolfBall->getvx() + GolfBall->getvy() * GolfBall->getvy()) < 1.5f) // om farten är väldigt liten så ska den bli noll bara
         {
@@ -144,22 +147,15 @@ void Player::SetupLevel(int _level)
     currentLevel.holePointer = nullptr;
     GolfBall = nullptr;
     golfHoleSetToPntr = false;
-    GolfBalls.clear();
-    currentLevel.holePointer = levels.GetHolePointer(_level);
-    GolfBall = &GolfBalls[0];
+    currentLevel.holePointer = levels[0].GetHolePointer(_level);
+    GolfBall = levels[0].GetLevel(_level)->getBall();
+
     SwingsThisRound = 0;
-
-    currentLevel.grassWidth = levels.GetLevel(_level)->getgrasswidth();
-    currentLevel.grassHeight = levels.GetLevel(_level)->getgrassheight();
-    currentLevel.grassx = levels.GetLevel(_level)->getgrassx();
-    currentLevel.grassy = levels.GetLevel(_level)->getgrassy();
-    currentLevel.px = levels.GetLevel(_level)->getpx();
-    currentLevel.py = levels.GetLevel(_level)->getpy();
-    currentLevel.holex = levels.GetLevel(_level)->getHolex();
-    currentLevel.holey = levels.GetLevel(_level)->getHoley();
-    currentLevel.holeRadius = levels.GetLevel(_level)->getHoleRadius();
-
-    GolfBalls.push_back(Ball(currentLevel.px, currentLevel.py, 0.f, 0.f, 0.f, 0.f, defaultRadius, 1, debugmode, 10));
+    currentLevel.px = levels[0].GetLevel(_level)->getpx();
+    currentLevel.py = levels[0].GetLevel(_level)->getpy();
+    currentLevel.holex = levels[0].GetLevel(_level)->getHolex();
+    currentLevel.holey = levels[0].GetLevel(_level)->getHoley();
+    currentLevel.holeRadius = levels[0].GetLevel(_level)->getHoleRadius();
     currentLevel.holePointer->setHasBall(false);
     setupDone = true;
 }
@@ -170,15 +166,12 @@ void Player::Draw()
     {
         if (!golfHoleSetToPntr) // setpointer to ball and hole
         {
-            currentLevel.holePointer = levels.GetHolePointer(level);
-            GolfBall = &GolfBalls[0];
+            currentLevel.holePointer = levels[0].GetHolePointer(level);
+            GolfBall = levels[0].GetLevel(level)->getBall();
             golfHoleSetToPntr = true;
         }
-        DrawRectangle(currentLevel.grassx, currentLevel.grassy, currentLevel.grassWidth, currentLevel.grassHeight, GREEN);
-
-        DrawCircle(currentLevel.holePointer->getx(), currentLevel.holePointer->gety(), currentLevel.holePointer->getRadius(), BLACK);
+        levels[0].GetLevel(level)->Draw(); //draw level
         GolfBall->Draw();
-
         if (pselectedBall != nullptr)
         {
             // Draw BiljardKö

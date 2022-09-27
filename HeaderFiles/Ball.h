@@ -38,7 +38,7 @@ public:
     float getax() { return me.ax; }
     float getay() { return me.ay; }
     float getpx() { return me.px; }
-    float getpy() { return me.px; }
+    float getpy() { return me.py; }
     float getvx() { return me.vx; }
     float getvy() { return me.vy; }
 

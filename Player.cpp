@@ -78,33 +78,7 @@ void Player::Update()
         GolfBall->setPy(GolfBall->getPos().y + (GolfBall->getVelocity().y * GetFrameTime())); // s = s0 + vt
         GolfBall->setPx(GolfBall->getPos().x + (GolfBall->getVelocity().x * GetFrameTime()));
 
-        // studs mot vägg
-        /*
-        if (GolfBall->getPos().x < (currentLevel.grassx + defaultRadius))
-        {
-            GolfBall->setVx(-GolfBall->getvx()); //ändra riktning
-            GolfBall->setax(-GolfBall->getax()); //'ndra accelrerande riktning
-            GolfBall->setPx(currentLevel.grassx + defaultRadius);
-        } // kolla vänster kanten
-        if (GolfBall->getPos().x > (currentLevel.grassx + currentLevel.grassWidth - defaultRadius))
-        {
-            GolfBall->setVx(-GolfBall->getvx()); //ändra riktning
-            GolfBall->setax(-GolfBall->getax()); //'ndra accelrerande riktning
-            GolfBall->setPx(currentLevel.grassx + currentLevel.grassWidth - defaultRadius);
-        } // kolla högerkanten
-        if (GolfBall->getPos().y < (currentLevel.grassy + defaultRadius))
-        {
-            GolfBall->setVy(-GolfBall->getvy()); //ändra riktning
-            GolfBall->setay(-GolfBall->getay()); //'ndra accelrerande riktning
-            GolfBall->setPy(currentLevel.grassy + defaultRadius);
-        }
-        if (GolfBall->getPos().y > (currentLevel.grassy + currentLevel.grassHeight - defaultRadius))
-        {
-            GolfBall->setVy(-GolfBall->getvy()); //ändra riktning
-            GolfBall->setay(-GolfBall->getay()); //'ndra accelrerande riktning
-            GolfBall->setPy(currentLevel.grassy + currentLevel.grassHeight - defaultRadius);
-        }
-        */
+        levels[0].GetLevel(level)->CheckCollision(); //check collision in level class
 
         if (fabs(GolfBall->getvx() * GolfBall->getvx() + GolfBall->getvy() * GolfBall->getvy()) < 1.5f) // om farten är väldigt liten så ska den bli noll bara
         {
